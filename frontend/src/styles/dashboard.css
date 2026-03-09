@@ -1,0 +1,234 @@
+/* ── Actions ── */
+.btns-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.btn {
+    font-family: 'Geist', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 7px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+}
+
+.primary{
+    background: #111;
+    color: #fff;
+    border: 1px solid #111;
+}
+
+.primary:hover {
+    background: #333;
+    border-color: #333;
+}
+
+/* Segundo botón como ghost */
+.secundary {
+    background: #fff;
+    color: #111;
+    border: 1px solid #e5e5e5;
+}
+
+.secundary:hover {
+    background: #f0f0f0;
+    border-color: #333;
+}
+/* ── Dashboard ── */
+.dashboard {
+    min-height: 100vh;
+    background: #f9f9f9;
+    padding: 64px 48px;
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+/* ── Header ── */
+.dashboard__header {
+    margin-bottom: 56px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.dashboard__tag {
+    display: inline-block;
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: 10px;
+}
+
+.dashboard__title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #111;
+    letter-spacing: -0.03em;
+    margin: 0;
+    line-height: 1.2;
+    font-family: 'Times New Roman', Times, serif !important;
+}
+
+/* ── Section ── */
+.dashboard__section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.section__meta {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.section__title {
+    font-size: 13px;
+    font-weight: 500;
+    color: #111;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-family: 'Geist Mono', monospace;
+}
+
+.section__count {
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px;
+    color: #bbb;
+}
+
+/* ── Books list ── */
+.books-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.books-list :deep(.book-card) {
+    border: none;
+    border-bottom: 1px solid #e5e5e5;
+    border-radius: 0;
+}
+
+.books-list :deep(.book-card:last-child) {
+    border-bottom: none;
+}
+
+/* ── Explore ── */
+.dashboard-explore {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid #e5e5e5;
+}
+
+.explore-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 120px;
+    gap: 8px;
+}
+
+.explore-card {
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    display: flex;
+    align-items: flex-end;
+    position: relative;
+    cursor: pointer;
+}
+
+.explore-card:hover {
+    border-color: #000;
+    box-shadow: 0 0 0 1px #000;
+}
+
+.explore-card--tall { grid-row: span 2; }
+.explore-card--wide { grid-column: span 2; }
+
+.explore-card__bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #fafafa 0%, #f0f0f0 100%);
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+    transition: transform 0.4s ease;
+}
+
+.explore-card:hover .explore-card__bg--image {
+    transform: scale(1.04);
+}
+
+.explore-card__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.1) 60%, transparent 100%);
+    z-index: 1;
+}
+
+.explore-card__content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px;
+}
+
+.explore-card__genre {
+    font-family: 'Geist Mono', monospace;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #bbb;
+}
+
+.explore-card__title {
+    font-family: 'Geist', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #111;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    letter-spacing: -0.01em;
+}
+
+.explore-card__author {
+    font-family: 'Geist', sans-serif;
+    font-size: 11px;
+    color: #888;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Texto blanco cuando hay imagen de fondo */
+.explore-card__bg--image ~ .explore-card__overlay ~ .explore-card__content .explore-card__title {
+    color: #fff;
+}
+
+.explore-card__bg--image ~ .explore-card__overlay ~ .explore-card__content .explore-card__author,
+.explore-card__bg--image ~ .explore-card__overlay ~ .explore-card__content .explore-card__genre {
+    color: rgba(255, 255, 255, 0.6);
+}

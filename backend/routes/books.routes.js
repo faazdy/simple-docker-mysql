@@ -31,7 +31,7 @@ router.get("/allbooks", async (req, res) => {
 // crear libro y asignarlo al usuario
 router.post("/", async (req, res) => {
 
-  const { title, author, year } = req.body;
+  const { title, author, year, genre, imageUrl } = req.body;
 
   const [result] = await db.query(
     "INSERT INTO books (title, author, year, genre, image_url) VALUES (?,?,?,?,?)",

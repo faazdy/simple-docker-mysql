@@ -1,14 +1,19 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, defineEmits } from 'vue'
 
 const props = defineProps({
   title: { type: String, required: true },
   author: { type: String, default: "Anonymous" },
   year: { type: Number, default: 0 },
-  image: { type: String, default: null },
+  image: { type: String, default: null, required: true },
   genre: { type: String, default: null }
 })
 
+const emit = defineEmits(["delete-book"])
+
+const removeBook = ()=>{
+  emit("delete-book")
+}
 const modalOpen = ref(false)
 </script>
 
@@ -58,6 +63,7 @@ const modalOpen = ref(false)
             <div class="modal-book__actions">
               <button class="btn btn--primary">Add to reading list</button>
               <button class="btn btn--ghost">Mark as read</button>
+              <button class="btn btn--ghost" @click="removeBook">Delete</button>
             </div>
           </div>
         </aside>
