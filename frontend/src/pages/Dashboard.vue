@@ -9,12 +9,10 @@ import AddBooksForm from '../components/AddBooksForm.vue';
 
 const books = ref([])
 const catalogBooks = ref([])
-const email = ref("")
+const fullName = ref("")
 
 //component AddBooksForm
 const addBookModal = ref(null)
-//component Book
-const handleRemoveBook = ref(null)
 
 const loadBooks = async () => {
     const res = await api.get("/books")
@@ -41,7 +39,7 @@ onMounted(() => {
 
     if (token) {
         const decoded = jwtDecode(token)
-        email.value = decoded.email
+        fullName.value = decoded.fullName
     }
 })
 
@@ -52,7 +50,7 @@ onMounted(() => {
         <div class="dashboard__header">
             <div class="dashboard__greeting">
                 <span class="dashboard__tag">Library Buukz</span>
-                <h1 class="dashboard__title">Hello, {{ email }}</h1>
+                <h1 class="dashboard__title">Hello {{ fullName ? fullName : 'Guest' }}</h1>
             </div>
         </div>
 
@@ -63,7 +61,7 @@ onMounted(() => {
             </div>
             <div class="btns-actions">
                 <button class="btn primary" @click="addBookModal.handleModal()">Add book</button>
-                <button class="btn secundary">Books Shop</button>
+                <a class="btn secundary" href="/catalog">Books Shop</a>
             </div>
             <div class="books-list">
                 <div v-if="books.length === 0" class="empty-state">
