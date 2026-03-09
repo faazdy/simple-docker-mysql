@@ -4,7 +4,7 @@ import { RouterLink, useRouter } from 'vue-router'
 const router = useRouter()
 
 const logout = () => {
-  // Aquí tu lógica de logout (limpiar token, store, etc.)
+  localStorage.removeItem('token')
   router.push('/login')
 }
 </script>
@@ -19,13 +19,22 @@ const logout = () => {
       <nav class="liquidGlass-text">
         <ul>
           <li>
-            <RouterLink to="/books" active-class="nav-link--active">Home</RouterLink>
+            <RouterLink to="/books" active-class="nav-link--active">
+              <span class="nav-icon">⌂</span>
+              <span class="nav-label">Home</span>
+            </RouterLink>
           </li>
           <li>
-            <RouterLink to="/catalog" active-class="nav-link--active">Explore</RouterLink>
+            <RouterLink to="/catalog" active-class="nav-link--active">
+              <span class="nav-icon">⊞</span>
+              <span class="nav-label">Explore</span>
+            </RouterLink>
           </li>
           <li>
-            <button class="nav-logout" @click="logout">Log Out</button>
+            <button class="nav-logout" @click="logout">
+              <span class="nav-icon">⎋</span>
+              <span class="nav-label">Log Out</span>
+            </button>
           </li>
         </ul>
       </nav>
@@ -42,89 +51,153 @@ const logout = () => {
 </template>
 
 <style scoped>
-/* HEADER */
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Geist:wght@400;500;600&display=swap');
+
+/* ── Header ── */
 .glass-header {
     position: fixed;
-    bottom: 20px;
+    bottom: 28px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 1000;
 }
 
-/* NAV GLASS CONTAINER */
+/* ── Glass container ── */
 .glass-nav {
-    width: 420px;
-    height: 64px;
+    width: fit-content;
+    height: 56px;
     border-radius: 2.5rem;
     align-items: center;
     justify-content: center;
+    padding: 0 8px;
 }
 
-/* LIQUID GLASS CORE */
+/* ── Liquid glass core ── */
 .liquidGlass-wrapper {
     position: relative;
     display: flex;
     overflow: hidden;
     box-shadow:
-        0 8px 20px rgba(0, 0, 0, .25),
-        inset 0 1px 0 rgba(255, 255, 255, .5);
+        0 8px 32px rgba(0, 0, 0, 0.18),
+        0 2px 8px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
-/* GLASS DISTORTION */
 .liquidGlass-effect {
     position: absolute;
     inset: 0;
-    backdrop-filter: blur(12px) saturate(160%);
+    backdrop-filter: blur(16px) saturate(180%);
     filter: url(#glass-distortion);
     z-index: 0;
 }
 
-/* TINT */
 .liquidGlass-tint {
     position: absolute;
     inset: 0;
-    background: rgba(255, 255, 255, .55);
+    background: rgba(255, 255, 255, 0.5);
     z-index: 1;
 }
 
-/* SHINE */
 .liquidGlass-shine {
     position: absolute;
     inset: 0;
     z-index: 2;
     box-shadow:
-        inset 1px 1px 1px rgba(255, 255, 255, .7),
-        inset -1px -1px 1px rgba(255, 255, 255, .4);
+        inset 1px 1px 1px rgba(255, 255, 255, 0.8),
+        inset -1px -1px 1px rgba(255, 255, 255, 0.3);
 }
 
-/* NAV CONTENT */
+/* ── Nav content ── */
 .liquidGlass-text {
     position: relative;
     z-index: 3;
+    height: 100%;
+    display: flex;
+    align-items: center;
 }
 
-/* NAV */
+/* ── List ── */
 nav ul {
     display: flex;
-    gap: 32px;
+    gap: 4px;
     list-style: none;
-    padding: 0;
+    padding: 0 6px;
     margin: 0;
+    align-items: center;
+    height: 100%;
 }
 
-nav a {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #111;
+nav li {
+    display: flex;
+    align-items: center;
+}
+
+/* ── Links ── */
+nav a,
+.nav-logout {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Geist', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.55);
     text-decoration: none;
-    padding: 8px 14px;
+    padding: 7px 14px;
     border-radius: 999px;
-    transition: all .3s ease;
+    transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    white-space: nowrap;
+    letter-spacing: -0.01em;
+    border: none;
+    background: none;
+    cursor: pointer;
 }
 
-nav a:hover {
-    background: rgba(255, 255, 255, .6);
-    backdrop-filter: blur(8px);
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .7);
+nav a:hover,
+.nav-logout:hover {
+    color: #111;
+    background: rgba(255, 255, 255, 0.65);
+    box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.8),
+        0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* ── Active link ── */
+.nav-link--active {
+    color: #111 !important;
+    background: rgba(255, 255, 255, 0.7) !important;
+    box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.9),
+        0 2px 8px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* ── Icon + label ── */
+.nav-icon {
+    font-size: 14px;
+    line-height: 1;
+    opacity: 0.7;
+}
+
+.nav-link--active .nav-icon,
+nav a:hover .nav-icon,
+.nav-logout:hover .nav-icon {
+    opacity: 1;
+}
+
+/* ── Separator antes del logout ── */
+nav li:last-child {
+    margin-left: 4px;
+    padding-left: 8px;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.nav-logout {
+    color: rgba(0, 0, 0, 0.4);
+}
+
+.nav-logout:hover {
+    color: #e5484d;
+    background: rgba(229, 72, 77, 0.08);
+    box-shadow: inset 0 0 0 1px rgba(229, 72, 77, 0.15);
 }
 </style>

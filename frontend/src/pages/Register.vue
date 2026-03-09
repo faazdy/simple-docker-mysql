@@ -5,6 +5,9 @@ import api from '../data/api';
 const email = ref("")
 const password = ref("")
 
+const form = {
+  name: ""
+}
 
 const handleSubmit = async()=>{
   const res = await api.post("/auth/register", {
@@ -25,7 +28,7 @@ const handleSubmit = async()=>{
 
       <!-- Header -->
       <div class="auth__header">
-        <span class="auth__tag">Bookshelf</span>
+        <span class="auth__tag">Buukz</span>
         <h1 class="auth__title">Create account</h1>
         <p class="auth__sub">Start tracking your reading journey</p>
       </div>

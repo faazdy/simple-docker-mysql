@@ -26,7 +26,7 @@ const handleSubmit = async()=>{
 
       <!-- Header -->
       <div class="auth__header">
-        <span class="auth__tag">Bookshelf</span>
+        <span class="auth__tag">buukz</span>
         <h1 class="auth__title">Welcome back</h1>
         <p class="auth__sub">Sign in to your account</p>
       </div>

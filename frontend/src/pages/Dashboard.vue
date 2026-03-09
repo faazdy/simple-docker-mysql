@@ -66,13 +66,13 @@ onMounted(() => {
                 <button class="btn secundary">Books Shop</button>
             </div>
             <div class="books-list">
-                <Book v-for="book in books" 
-                    :key="book.id" 
-                    :author="book.author" 
-                    :title="book.title"
-                    :year="book.year"
-                    @delete-book="deleteBook(book.id)"
-                    />
+                <div v-if="books.length === 0" class="empty-state">
+                    <span class="empty-state__text">Your shelf is empty</span>
+                    <a class="empty-state__link" href="/catalog">Go to Store!</a>
+                </div>
+
+                <Book v-for="book in books" :key="book.id" :author="book.author" :title="book.title" :year="book.year"
+                    @delete-book="deleteBook(book.id)" />
             </div>
         </section>
 
@@ -108,5 +108,32 @@ onMounted(() => {
 *::before,
 *::after {
     box-sizing: border-box;
+}
+/* ── Empty state ── */
+.empty-state {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+}
+
+.empty-state__text {
+    font-family: 'Geist', sans-serif;
+    font-size: 12px;
+    color: #bbb;
+}
+
+.empty-state__link {
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px;
+    color: #111;
+    text-decoration: none;
+    border-bottom: 1px solid #e5e5e5;
+    transition: border-color 0.15s;
+    letter-spacing: -0.01em;
+}
+
+.empty-state__link:hover {
+    border-color: #111;
 }
 </style>
