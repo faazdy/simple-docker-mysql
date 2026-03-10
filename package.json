@@ -4,17 +4,19 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:docker": "docker compose up -d",
-    "sql": "docker exec -it mysql-container mysql -uroot -p",
+    "sql": "docker exec -it mysql_libros mysql -u root -p",
     "start:backend": "cd backend && npm run dev",
-    "start:frontend": "cd frontend && npm run dev"
+    "start:frontend": "cd frontend && npm run dev",
+    "docker:delete": "docker compose down -v",
+    "docker:build": "docker compose up -d",
+    "docker:off": "docker compose stop"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/faazdy/simple-docker-mysql.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Leonardo Rengifo",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/faazdy/simple-docker-mysql/issues"

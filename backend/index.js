@@ -1,6 +1,8 @@
+require('dotenv').config();
 const express = require("express");
 const cors = require("cors");
 
+const authMiddleware = require('./middleware/auth')
 const authRoutes = require("./routes/auth.routes");
 const bookRoutes = require("./routes/books.routes");
 

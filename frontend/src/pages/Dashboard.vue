@@ -50,7 +50,7 @@ onMounted(() => {
         <div class="dashboard__header">
             <div class="dashboard__greeting">
                 <span class="dashboard__tag">Library Buukz</span>
-                <h1 class="dashboard__title">Hello {{ fullName ? fullName : 'Guest' }}</h1>
+                <h1 class="dashboard__title">Hello {{ fullName ? fullName.value : 'Guest' }}</h1>
             </div>
         </div>
 

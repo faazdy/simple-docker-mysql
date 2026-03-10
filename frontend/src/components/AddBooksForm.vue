@@ -1,5 +1,5 @@
 <script setup>
-import { ref, defineExpose } from 'vue'
+import { ref } from 'vue'
 import api from '../data/api'
 
 //events
@@ -42,7 +42,6 @@ const addBook = async()=>{
         emit("book-added")
         close()
     } catch (err) {
-    
         console.error('Error to add book', err.res?.data || err.message)
     }
 }

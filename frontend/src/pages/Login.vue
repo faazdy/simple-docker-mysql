@@ -9,14 +9,23 @@ const password = ref("")
 const router = useRouter()
 
 const handleSubmit = async()=>{
-  const res = await api.post("/auth/login", {
+  //payload
+  const loginUserData = {
     email: email.value,
     password: password.value
-  })
+  }
 
-  localStorage.setItem("token", res.data.token)
-
-  router.push("/books")
+  try {
+    const res = await api.post("/auth/login", loginUserData)
+    const { token } = res.data
+    localStorage.setItem('token', token)
+    if(token){
+      router.push("/books")
+    }
+  } catch (error) {
+    console.error(error)
+  }
+  
 }
 </script>
 

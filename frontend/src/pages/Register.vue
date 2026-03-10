@@ -2,22 +2,42 @@
 import { ref } from 'vue'
 import api from '../data/api';
 
+//input data
+const fullName = ref("")
 const email = ref("")
 const password = ref("")
 
-const form = {
-  name: ""
-}
+//validations
+const submitted = ref(false)
+const error = ref('')
 
-const handleSubmit = async()=>{
-  const res = await api.post("/auth/register", {
+
+const handleSubmit = async () => {
+  //user payload
+  const newUser = {
+    full_name: fullName.value,
     email: email.value,
     password: password.value
-  })
+  }
 
-  localStorage.setItem("token", res.data.token)
+  try {
+    const res = await api.post("/auth/register", newUser, {
+      headers: { 'Content-Type': 'application/json' }
+    })
 
-  router.push("/books")
+    if (res.data.error) {
+      error.value = res.data.error
+      console.log(error.value)
+    } else {
+      submitted.value = true
+      error.value = ''
+      console.log(res.data.message)
+    }
+
+  } catch (error) {
+    console.error(res?.data.message)
+    error.value = res.data.message
+  }
 }
 </script>
 
@@ -40,54 +60,36 @@ const handleSubmit = async()=>{
           <p class="success__text">Account created — <a href="/login" class="auth__link">Sign in</a></p>
         </div>
       </Transition>
-
+      <Transition name="fade">
+        <div v-if="error" class="auth__error">
+          <span class="error__icon">!</span>
+          <p class="error__text">{{ error }}</p>
+        </div>
+      </Transition>
       <!-- Form -->
       <Transition name="fade">
         <form v-if="!submitted" class="auth__form" @submit.prevent="handleSubmit">
 
           <div class="field">
             <label class="field__label" for="name">Full name</label>
-            <input
-              id="name"
-              v-model="form.name"
-              class="field__input"
-              type="text"
-              placeholder="Jane Doe"
-              required
-              autocomplete="name"
-            />
+            <input id="name" v-model="fullName" class="field__input" type="text" placeholder="Jane Doe" required
+              autocomplete="name" />
           </div>
 
           <div class="field">
             <label class="field__label" for="email">Email</label>
-            <input
-              id="email"
-              v-model="form.email"
-              class="field__input"
-              type="email"
-              placeholder="jane@example.com"
-              required
-              autocomplete="email"
-            />
+            <input id="email" v-model="email" class="field__input" type="email" placeholder="jane@example.com" required
+              autocomplete="email" />
           </div>
 
           <div class="field">
             <label class="field__label" for="password">Password</label>
-            <input
-              id="password"
-              v-model="form.password"
-              class="field__input"
-              type="password"
-              placeholder="Min. 8 characters"
-              required
-              minlength="8"
-              autocomplete="new-password"
-            />
+            <input id="password" v-model="password" class="field__input" type="password" placeholder="Min. 8 characters"
+              required minlength="8" autocomplete="new-password" />
           </div>
 
-          <button class="btn-submit" type="submit" :disabled="loading">
-            <span v-if="!loading">Create account</span>
-            <span v-else class="btn-submit__loader" />
+          <button class="btn-submit" type="submit">
+            <span>Create account</span>
           </button>
 
           <p class="auth__footer">
@@ -108,7 +110,9 @@ const handleSubmit = async()=>{
 
 *,
 *::before,
-*::after { box-sizing: border-box; }
+*::after {
+  box-sizing: border-box;
+}
 
 /* ── Page ── */
 .auth {
@@ -241,14 +245,16 @@ const handleSubmit = async()=>{
 .btn-submit__loader {
   width: 14px;
   height: 14px;
-  border: 2px solid rgba(255,255,255,0.3);
+  border: 2px solid rgba(255, 255, 255, 0.3);
   border-top-color: #fff;
   border-radius: 50%;
   animation: spin 0.6s linear infinite;
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ── Footer ── */
@@ -299,8 +305,39 @@ const handleSubmit = async()=>{
 .fade-leave-active {
   transition: opacity 0.2s ease;
 }
+
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+
+.auth__error {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background: #fff5f5;
+  border: 1px solid #fecaca;
+  border-radius: 6px;
+}
+
+.error__icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #e5484d;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.error__text {
+  font-size: 12px;
+  color: #c0353a;
+  margin: 0;
 }
 </style>
