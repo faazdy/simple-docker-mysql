@@ -1,0 +1,24 @@
+{
+  "name": "simple-docker-mysql",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:docker": "docker compose up -d",
+    "sql": "docker exec -it mysql-container mysql -uroot -p",
+    "start:backend": "cd backend && npm run dev",
+    "start:frontend": "cd frontend && npm run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/faazdy/simple-docker-mysql.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/faazdy/simple-docker-mysql/issues"
+  },
+  "homepage": "https://github.com/faazdy/simple-docker-mysql#readme",
+  "description": ""
+}
